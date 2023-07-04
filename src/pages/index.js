@@ -5,19 +5,23 @@ import HomeBanner from "@/components/Landing/HomeBanner";
 import FiverrBusiness from "@/components/Landing/FiverBusiness";
 import Everything from "@/components/Landing/Everything";
 import JoinFiver from "@/components/Landing/JoinFiver";
+import Companies from "@/components/Landing/Companies";
+import PopularServices from "@/components/Landing/PopularServices";
+import Services from "@/components/Landing/Services";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
+    <div>
       <HomeBanner />
-      {/* <Footer /> */}
-      {/* <FiverrBusiness /> */}
-      {/* <Everything /> */}
+      <Companies />
+      <PopularServices />
+      <Everything />
+      <Services />
+      <FiverrBusiness />
       <JoinFiver />
-    </main>
+      <Footer />
+    </div>
   );
 }
