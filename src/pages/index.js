@@ -8,10 +8,14 @@ import JoinFiver from "@/components/Landing/JoinFiver";
 import Companies from "@/components/Landing/Companies";
 import PopularServices from "@/components/Landing/PopularServices";
 import Services from "@/components/Landing/Services";
+import AuthWrapper from "@/components/AuthWrapper";
+
+import { useStateProvider } from "../context/StateContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  // const [{ showLoginModal }] = useStateProvider();
   return (
     <div>
       <HomeBanner />
@@ -22,6 +26,7 @@ export default function Home() {
       <FiverrBusiness />
       <JoinFiver />
       <Footer />
+      <AuthWrapper />
     </div>
   );
 }
