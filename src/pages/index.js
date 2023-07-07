@@ -15,7 +15,7 @@ import { useStateProvider } from "../context/StateContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  // const [{ showLoginModal }] = useStateProvider();
+  const [{ showLoginModal, showSignupModal }] = useStateProvider();
   return (
     <div>
       <HomeBanner />
@@ -26,7 +26,9 @@ export default function Home() {
       <FiverrBusiness />
       <JoinFiver />
       <Footer />
-      <AuthWrapper />
+      {(showLoginModal || showSignupModal) && (
+        <AuthWrapper type={showLoginModal ? "login" : "signup"} />
+      )}
     </div>
   );
 }

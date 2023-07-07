@@ -1,8 +1,14 @@
-import React from "react";
+import { useStateProvider } from "@/context/StateContext";
+import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { MdFacebook } from "react-icons/md";
 
-function AuthWrapper() {
+function AuthWrapper({ type }) {
+  const [{ showLoginModal, showSignupModal }, dispatch] = useStateProvider();
+  const [values, setValues] = useState({ email: "", password: "" });
+  const handleChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
   return (
     <div className="fixed top-0 z-[100]">
       <div
@@ -38,14 +44,16 @@ function AuthWrapper() {
             name="email"
             placeholder="Email / Username"
             className="border border-slate-300 p-3 w-80"
-            // onChange={handleChange}
+            value={values.email}
+            onChange={handleChange}
           />
           <input
             type="password"
             placeholder="Password"
             className="border border-slate-300 p-3 w-80"
             name="password"
-            // onChange={handleChange}
+            value={values.password}
+            onChange={handleChange}
           />
           <button
             className="bg-[#1DBF73] text-white px-12 text-lg font-semibold rounded-r-md p-3 w-80"
