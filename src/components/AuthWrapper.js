@@ -1,30 +1,40 @@
 import { reducerCases } from "@/context/constants";
 import { useStateProvider } from "@/context/StateContext";
-import { SIGNUP_ROUTE } from "@/utils/constants";
+import { SIGNUP_ROUTE, LOGIN_ROUTE } from "@/utils/constants";
 import axios from "axios";
 import React, { useState } from "react";
+import { useCookies } from "react-cookie";
 import { FcGoogle } from "react-icons/fc";
 import { MdFacebook } from "react-icons/md";
 
 function AuthWrapper({ type }) {
+  const [cookies, setCookies] = useCookies();
   const [{ showLoginModal, showSignupModal }, dispatch] = useStateProvider();
   const [values, setValues] = useState({ email: "", password: "" });
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
+
   const handleClick = async () => {
     try {
+      console.log("test");
+
       const { email, password } = values;
       if (email && password) {
-        const response = await axios.post(
-          SIGNUP_ROUTE,
-          {
-            email,
-            password,
-          },
-          { withCrendentials: true }
+        const {
+          data: { user, jwt },
+        } = await axios.post(
+          type === "login" ? LOGIN_ROUTE : SIGNUP_ROUTE,
+          { email, password },
+          { withCredentials: true }
         );
-        console.log(response);
+        setCookies("jwt", { jwt: jwt });
+        dispatch({ type: reducerCases.CLOSE_AUTH_MODAL });
+
+        if (user) {
+          dispatch({ type: reducerCases.SET_USER, userInfo: user });
+          window.location.reload();
+        }
       }
     } catch (err) {
       console.log(err);
