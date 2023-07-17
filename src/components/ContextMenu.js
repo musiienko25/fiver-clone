@@ -25,5 +25,3 @@ function ContextMenu({ data }) {
     </div>
   );
 }
-
-export default ContextMenu;
